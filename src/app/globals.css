@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@theme {
+  --color-ink: #07070a;
+  --color-surface: #121218;
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-amber: #ff9f43;
+  --color-violet: #7c3aed;
+  --color-muted: #a1a1aa;
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --radius-card: 1.25rem;
+}
+body {
+  background: radial-gradient(60rem 30rem at 85% -10%, rgb(124 58 237 / 0.18), transparent),
+    radial-gradient(40rem 25rem at 0% 0%, rgb(255 159 67 / 0.1), transparent), var(--color-ink);
+  color: #f4f4f5; font-family: var(--font-sans); min-height: 100dvh;
+}
+.glass { background: rgb(24 24 32 / 0.92); border: 1px solid var(--color-line); border-radius: var(--radius-card); box-shadow: 0 8px 30px rgb(0 0 0 / 0.35); }
+@supports (backdrop-filter: blur(1px)) { .glass { background: rgb(255 255 255 / 0.05); backdrop-filter: blur(16px) saturate(140%); } }
+.card-hover { transition: transform 0.25s ease, border-color 0.25s ease; }
+@media (hover: hover) { .card-hover:hover { transform: translateY(-3px); border-color: rgb(255 159 67 / 0.5); } }
+.field { width: 100%; border-radius: 0.75rem; background: rgb(255 255 255 / 0.06); border: 1px solid var(--color-line); padding: 0.65rem 0.85rem; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 999px; padding: 0.6rem 1.2rem; font-weight: 600; background: var(--color-amber); color: #1a1205; transition: transform 0.15s, opacity 0.15s; cursor: pointer; }
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-ghost { background: rgb(255 255 255 / 0.08); color: inherit; border: 1px solid var(--color-line); }
+:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
