@@ -3,24 +3,47 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, LogOut } from "lucide-react";
+import {
+  Menu,
+  X,
+  LayoutDashboard,
+  Music,
+  Calendar,
+  Video,
+  Image as ImageIcon,
+  FolderOpen,
+  Share2,
+  CalendarClock,
+  Wand2,
+  Users,
+  BarChart3,
+  Settings,
+  Plug,
+  ShieldAlert
+} from "lucide-react";
 import { type Role } from "@/lib/auth";
+import { type NavGroupConfig } from "@/app/dashboard/layout";
 
-interface NavItem {
-  href: string;
-  label: string;
-  icon: any;
-  roles: Role[];
-}
-
-interface NavGroup {
-  title: string;
-  items: NavItem[];
-}
+const ICON_MAP: Record<string, any> = {
+  LayoutDashboard,
+  Music,
+  Calendar,
+  Video,
+  ImageIcon,
+  FolderOpen,
+  Share2,
+  CalendarClock,
+  Wand2,
+  Users,
+  BarChart3,
+  Settings,
+  Plug,
+  ShieldAlert,
+};
 
 interface DashboardSidebarClientProps {
   role: Role;
-  navGroups: NavGroup[];
+  navGroups: NavGroupConfig[];
   signOutAction: () => Promise<void>;
   children: React.ReactNode;
 }
@@ -108,7 +131,7 @@ export function DashboardSidebarClient({
                 </h2>
                 <nav aria-label={group.title} className="space-y-1">
                   {accessibleItems.map((n) => {
-                    const Icon = n.icon;
+                    const Icon = ICON_MAP[n.iconName] || LayoutDashboard;
                     const isActive = pathname === n.href;
                     return (
                       <Link

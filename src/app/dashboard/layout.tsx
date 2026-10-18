@@ -20,49 +20,56 @@ import { DashboardSidebarClient } from "@/components/dashboard-sidebar-client";
 
 export const metadata = { title: "Dashboard", robots: { index: false, follow: false } };
 
-interface NavGroup {
-  title: string;
-  items: { href: string; label: string; icon: any; roles: Role[] }[];
+export interface NavItemConfig {
+  href: string;
+  label: string;
+  iconName: string;
+  roles: Role[];
 }
 
-const NAV_GROUPS: NavGroup[] = [
+export interface NavGroupConfig {
+  title: string;
+  items: NavItemConfig[];
+}
+
+const NAV_GROUPS: NavGroupConfig[] = [
   {
     title: "Overview",
     items: [
-      { href: "/dashboard", label: "Dashboard Home", icon: LayoutDashboard, roles: ["editor", "social_manager", "booking_manager"] },
+      { href: "/dashboard", label: "Dashboard Home", iconName: "LayoutDashboard", roles: ["editor", "social_manager", "booking_manager"] },
     ],
   },
   {
     title: "Music & Content",
     items: [
-      { href: "/dashboard/mixes", label: "Mixes", icon: Music, roles: ["editor"] },
-      { href: "/dashboard/events", label: "Events", icon: Calendar, roles: ["editor"] },
-      { href: "/dashboard/videos", label: "Videos", icon: Video, roles: ["editor"] },
-      { href: "/dashboard/gallery", label: "Gallery", icon: ImageIcon, roles: ["editor"] },
-      { href: "/dashboard/media", label: "Media Library", icon: FolderOpen, roles: ["editor"] },
+      { href: "/dashboard/mixes", label: "Mixes", iconName: "Music", roles: ["editor"] },
+      { href: "/dashboard/events", label: "Events", iconName: "Calendar", roles: ["editor"] },
+      { href: "/dashboard/videos", label: "Videos", iconName: "Video", roles: ["editor"] },
+      { href: "/dashboard/gallery", label: "Gallery", iconName: "ImageIcon", roles: ["editor"] },
+      { href: "/dashboard/media", label: "Media Library", iconName: "FolderOpen", roles: ["editor"] },
     ],
   },
   {
     title: "Social & Studio",
     items: [
-      { href: "/dashboard/social", label: "Social Accounts", icon: Share2, roles: ["social_manager"] },
-      { href: "/dashboard/planner", label: "Content Planner", icon: CalendarClock, roles: ["social_manager"] },
-      { href: "/dashboard/ai", label: "AI Studio", icon: Wand2, roles: ["social_manager", "editor"] },
+      { href: "/dashboard/social", label: "Social Accounts", iconName: "Share2", roles: ["social_manager"] },
+      { href: "/dashboard/planner", label: "Content Planner", iconName: "CalendarClock", roles: ["social_manager"] },
+      { href: "/dashboard/ai", label: "AI Studio", iconName: "Wand2", roles: ["social_manager", "editor"] },
     ],
   },
   {
     title: "Audience",
     items: [
-      { href: "/dashboard/bookings", label: "Bookings", icon: Users, roles: ["booking_manager"] },
-      { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3, roles: ["editor", "social_manager", "booking_manager"] },
+      { href: "/dashboard/bookings", label: "Bookings", iconName: "Users", roles: ["booking_manager"] },
+      { href: "/dashboard/analytics", label: "Analytics", iconName: "BarChart3", roles: ["editor", "social_manager", "booking_manager"] },
     ],
   },
   {
     title: "Administration",
     items: [
-      { href: "/dashboard/settings", label: "Website Settings", icon: Settings, roles: ["editor"] },
-      { href: "/dashboard/integrations", label: "Integrations", icon: Plug, roles: ["editor"] },
-      { href: "/dashboard/team", label: "Team Settings", icon: ShieldAlert, roles: ["owner"] },
+      { href: "/dashboard/settings", label: "Website Settings", iconName: "Settings", roles: ["editor"] },
+      { href: "/dashboard/integrations", label: "Integrations", iconName: "Plug", roles: ["editor"] },
+      { href: "/dashboard/team", label: "Team Settings", iconName: "ShieldAlert", roles: ["owner"] },
     ],
   },
 ];
