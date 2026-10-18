@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { requireRole, type Role } from "@/lib/auth";
 import { signOut } from "@/app/login/actions";
 import {
@@ -17,6 +16,7 @@ import {
   Plug,
   ShieldAlert
 } from "lucide-react";
+import { DashboardSidebarClient } from "@/components/dashboard-sidebar-client";
 
 export const metadata = { title: "Dashboard", robots: { index: false, follow: false } };
 
@@ -71,53 +71,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const { role } = await requireRole(["editor", "social_manager", "booking_manager"]);
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row min-h-[85vh]">
-      <aside className="glass p-4 md:w-72 space-y-6 md:sticky md:top-6 md:h-[calc(100vh-3rem)] md:overflow-y-auto flex flex-col justify-between shrink-0">
-        <div className="space-y-6">
-          <div className="px-3 pt-2">
-            <h1 className="text-sm font-bold tracking-tight text-white flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff9f43] inline-block animate-pulse" />
-              DJ ChrisFix Portal
-            </h1>
-            <p className="text-xs text-muted mt-0.5 capitalize font-mono">Role: {role}</p>
-          </div>
-
-          <div className="space-y-5">
-            {NAV_GROUPS.map((group) => {
-              const accessibleItems = group.items.filter((n) => role === "owner" || n.roles.includes(role));
-              if (accessibleItems.length === 0) return null;
-
-              return (
-                <div key={group.title} className="space-y-1">
-                  <h2 className="text-[11px] font-semibold tracking-wider uppercase text-muted/80 px-3 mb-1.5">{group.title}</h2>
-                  <nav aria-label={group.title} className="space-y-1">
-                    {accessibleItems.map((n) => {
-                      const Icon = n.icon;
-                      return (
-                        <Link
-                          key={n.href}
-                          href={n.href}
-                          className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted hover:text-white hover:bg-white/5 transition-colors group"
-                        >
-                          <Icon size={18} className="text-[#ff9f43] shrink-0 group-hover:scale-110 transition-transform" />
-                          <span className="truncate">{n.label}</span>
-                        </Link>
-                      );
-                    })}
-                  </nav>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="pt-4 border-t border-white/10 mt-auto">
-          <form action={signOut}>
-            <button className="btn btn-ghost w-full justify-center text-sm">Sign out</button>
-          </form>
-        </div>
-      </aside>
-      <section className="min-w-0 flex-1">{children}</section>
-    </div>
+    <DashboardSidebarClient role={role} navGroups={NAV_GROUPS} signOutAction={signOut}>
+      {children}
+    </DashboardSidebarClient>
   );
 }
